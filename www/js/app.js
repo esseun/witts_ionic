@@ -4,9 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 
-angular.module('witts_ionic', ['ionic'])
+var app = angular.module('witts_ionic', ['ionic'])
 
-.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider) {
     
     $stateProvider
         .state('tabs', {
@@ -53,8 +53,12 @@ angular.module('witts_ionic', ['ionic'])
     
 })
 
-.controller('HomeTabCtrl', function($scope) {
+app.controller('HomeTabCtrl', function($scope) {
     console.log('HomeTabCtrl');
+});
+
+app.config(function($ionicConfigProvider) {
+    $ionicConfigProvider.navBar.alignTitle('center');
 });
 
 app.run(function($ionicPlatform) {
