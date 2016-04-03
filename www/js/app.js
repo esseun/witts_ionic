@@ -3,36 +3,58 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('witts_ionic', ['ionic']);
 
-app.config(function($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/')
+angular.module('witts_ionic', ['ionic'])
 
-    $stateProvider.state('app.menu', {
-        url: '',
-        views: {
-            todos: {
-                templateUrl: 'menu.html',
-                controller: 'MenuCtrl'
-            }
-        }
-    })
+.config(function($stateProvider, $urlRouterProvider) {
     
-    $stateProvider.state('app.help', {
-        url: '/help',
-        view: {
-            home: {
-                templateUrl: 'help.html'
+    $stateProvider
+        .state('tabs', {
+            url: "/tab",
+            abstract: true,
+            templateUrl: "templates/tabs.html"
+        })
+        .state('tabs.home', {
+            url: "/home",
+            views: {
+                'home-tab': {
+                    templateUrl: "templates/home.html",
+                    controller: 'HomeTabCtrl'
+                }
             }
-        }
-    })
-});
+        })
+        .state('tabs.measure', {
+            url: "/measure",
+            views: {
+                'home-tab': {
+                    templateUrl: "templates/measure.html"
+                }
+            }
+        })
+        .state('tabs.about', {
+            url: "/about",
+            views: {
+                'about-tab': {
+                    templateUrl: "templates/about.html"
+                }
+            }
+        })
+        .state('tabs.help', {
+            url: "/help",
+            views: {
+                'help-tab': {
+                    templateUrl: "templates/help.html"
+                }
+            }
+        });
+    
+    
+    $urlRouterProvider.otherwise("/tab/home");
+    
+})
 
-app.controller('MenuCtrl', function($scope) {
-    $scope.menuitems = [
-        { option: "Measure & Record Temperature" },
-        { option: "View Patient Records" }
-    ]
+.controller('HomeTabCtrl', function($scope) {
+    console.log('HomeTabCtrl');
 });
 
 app.run(function($ionicPlatform) {
