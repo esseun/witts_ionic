@@ -3,21 +3,22 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('witts_ionic', ['ionic'])
+var app = angular.module('witts_ionic', ['ionic']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/')
 
-    $stateProvider.state('home', {
-        url: '/home',
-        view: {
-            home: {
-                templateUrl: 'home.html'
+    $stateProvider.state('app.menu', {
+        url: '',
+        views: {
+            todos: {
+                templateUrl: 'menu.html',
+                controller: 'MenuCtrl'
             }
         }
     })
     
-    $stateProvider.state('help', {
+    $stateProvider.state('app.help', {
         url: '/help',
         view: {
             home: {
@@ -27,11 +28,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
     })
 });
 
-app.controller('CenterCntrl', function($scope) {
-    $scope.items = [
-        { title: 'Measure & Record Temperature' },
-        { title: 'View Patient Records' }
-    ];
+app.controller('MenuCtrl', function($scope) {
+    $scope.menuitems = [
+        { option: "Measure & Record Temperature" },
+        { option: "View Patient Records" }
+    ]
 });
 
 app.run(function($ionicPlatform) {
