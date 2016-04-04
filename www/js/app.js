@@ -1,10 +1,5 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-
-var app = angular.module('witts_ionic', ['ionic'])
+// angular module for app
+var app = angular.module('witts_ionic', ['ionic', 'nfcFilters']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
     
@@ -51,10 +46,47 @@ app.config(function($stateProvider, $urlRouterProvider) {
     
     $urlRouterProvider.otherwise("/tab/home");
     
-})
+});
 
 app.controller('HomeTabCtrl', function($scope) {
     console.log('HomeTabCtrl');
+});
+
+app.controller('NfcCtrl', function($scope, nfcService) {
+    $scope.tag = nfcService.tag;
+    console.log("nfcService.tag: ", nfcService.tag);
+    $scope.clear = function() {
+        nfcService.clearTag();
+    };
+});
+
+app.factory('nfcService', function($rootScope, $ionicPlatform) {
+
+    var tag = {};
+
+    console.log("Inside app.factory...");
+
+    $ionicPlatform.ready(function() {
+        nfc.addNdefListener(function(nfcEvent) {
+            console.log(JSON.stringify(nfcEvent.tag, null, 4));
+            $rootScope.$apply(function(){
+                angular.copy(nfcEvent.tag, tag);
+                // if necessary $state.go('some-route')
+            });
+        }, function() {
+            console.log("Listening for NDEF Tags.");
+        }, function(reason) {
+            alert("Error adding NFC Listener " + reason);
+        });
+    });
+
+    return {
+        tag: tag,
+
+        clearTag: function () {
+            angular.copy({}, this.tag);
+        }
+    };
 });
 
 app.config(function($ionicConfigProvider) {
