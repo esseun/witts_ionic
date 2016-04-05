@@ -52,44 +52,38 @@
     <script id="templates/home.html" type="text/ng-template">
       <ion-view view-title="WiTTS: A Wireless Temperature Tracking System">
         <ion-content class="padding">
+          <br/>
           <p>
-            <a class="button button-full icon icon-right ion-chevron-right" href="#/tab/measure">Measure & Record Temperature</a>
+            <a class="button button-full button-large button-positive icon icon-left ion-thermometer" href="#/tab/measure"> Measure & Record Temperature</a>
+          </p>
+          <br/>
+          <p>
+            <a class="button button-full button-large button-positive icon icon-left ion-android-person" href="#/tab/view"> View Patient Records</a>
           </p>
         </ion-content>
       </ion-view>
     </script>
 
     <script id="templates/measure.html" type="text/ng-template">
-      <!-- Below uses NfcCtrl -->
+      <!-- Uses NfcCtrl -->
       <ion-view view-title="Measure & Record Temperature">
         <ion-content class="padding">
           <div ng-if="!tag.id">
             <div class="card">
               <div class="item item-text-wrap center">
-                Scan a tag to begin.
+                Scan the WiTTS temperature sensor to begin.
               </div>
             </div>
           </div>
           <div ng-if="tag.id">
             <div class="card">
               <div class="item item-text-wrap">
-                <dl>
-                  <dt>Tag ID</dt>
-                  <dd>{{ tag.id | bytesToHexString }}</dd>
-                  <dt>Tag Type</dt>
-                  <dd>{{ tag.type }}</dd>
-                </dl>
                 <div class="card" ng-repeat="record in tag.ndefMessage">
                   <div class="item item-divider">
-                    Record {{$index + 1}} <br/>
+                    Sensor Reading <br/>
                   </div>
                   <div class="item item-text-wrap">
                     <dl>
-                      <dt>TNF</dt>
-                      <dd>{{ record.tnf | tnfToString }}</dd>
-                      <dt>Record Type</dt>
-                      <dd>{{ record.type | bytesToString }}</dd>
-                      <dt>Payload</dt>
                       <dd>{{ record | decodePayload }}</dd>
                     </dl>
                   </div>
@@ -98,8 +92,50 @@
             </div>
           </div>
           <p>
-            <button class="button button-clear button-positive" ng-click="clear()" ng-if="tag.id">Clear</button>
-            <a class="button icon ion-home" href="#/tab/home"> Home</a>
+            <div class="button-bar">
+              <a class="button button-outline button-positive icon ion-android-refresh" ng-click="clear()"></a>
+              <a class="button button-outline button-positive icon ion-home" href="#/tab/home"></a>
+            </div>
+          </p>
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script id="templates/view.html" type="text/ng-template">
+      <!-- Uses NfcCtrl -->
+      <ion-view view-title="View Patient Records">
+        <ion-content class="padding">
+          <div ng-if="!tag.id">
+            <div class="card">
+              <div class="item item-text-wrap center">
+                Scan patient tag to begin.
+              </div>
+            </div>
+          </div>
+          <div ng-if="tag.id">
+            <div class="card">
+              <div class="item item-text-wrap">
+                <div class="card" ng-repeat="record in tag.ndefMessage">
+                  <div class="item item-divider">
+                    Patient ID # <br/>
+                  </div>
+                  <div class="item item-text-wrap">
+                    <dl>
+                      <dd>{{ record | decodePayload }}</dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- div ng-if="tag.id">
+               Retrieve patient temperature data history and draw graph
+          </div -->
+          <p>
+            <div class="button-bar">
+              <a class="button button-outline button-positive icon ion-android-refresh" ng-click="clear()"></a>
+              <a class="button button-outline button-positive icon ion-home" href="#/tab/home"></a>
+            </div>
           </p>
         </ion-content>
       </ion-view>
@@ -108,9 +144,7 @@
     <script id="templates/about.html" type="text/ng-template">
       <ion-view view-title="About">
         <ion-content class="padding">
-          <h3>Create hybrid mobile apps with the web technologies you love.</h3>
-          <p>Free and open source, Ionic offers a library of mobile-optimized HTML, CSS and JS components for building highly interactive apps.</p>
-          <p>Built with Sass and optimized for AngularJS.</p>
+          <h3>About WiTTS</h3>
         </ion-content>
       </ion-view>
     </script>
@@ -118,14 +152,7 @@
     <script id="templates/help.html" type="text/ng-template">
       <ion-view title="Help">
         <ion-content>
-          <div class="list">
-            <div class="item">
-              @IonicFramework
-            </div>
-            <div class="item">
-              @DriftyTeam
-            </div>
-          </div>
+          <h3>Documentation</h3>
         </ion-content>
       </ion-view>
     </script>

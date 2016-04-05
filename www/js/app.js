@@ -26,6 +26,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+        .state('tabs.view', {
+            url: "/view",
+            views: {
+                'home-tab': {
+                    templateUrl: "templates/view.html"
+                }
+            }
+        })
         .state('tabs.about', {
             url: "/about",
             views: {
