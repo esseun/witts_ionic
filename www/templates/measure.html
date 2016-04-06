@@ -1,0 +1,34 @@
+<!-- Uses NfcCtrl -->
+<ion-view view-title="Measure & Record Temperature">
+  <ion-content class="padding">
+    <div ng-if="!tag.id">
+      <div class="card">
+        <div class="item item-text-wrap center">
+          Scan the WiTTS temperature sensor to begin.
+        </div>
+      </div>
+    </div>
+    <div ng-if="tag.id">
+      <div class="card">
+        <div class="item item-text-wrap">
+          <div class="card" ng-repeat="record in tag.ndefMessage">
+            <div class="item item-divider">
+              Temperature Reading (Fahrenheit) <br/>
+            </div>
+            <div class="item item-text-wrap">
+              <dl>
+                <dd>{{ record | decodePayload }}</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>
+      <div class="button-bar">
+        <a class="button button-outline button-positive icon ion-android-refresh" ng-click="clear()"></a>
+        <a class="button button-outline button-positive icon ion-home" ng-click="clear()" href="#/tab/home"></a>
+      </div>
+    </p>
+  </ion-content>
+</ion-view>
