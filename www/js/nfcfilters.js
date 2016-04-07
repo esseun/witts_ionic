@@ -1,4 +1,3 @@
-// angular module for nfcfilter
 var nfc = angular.module('nfcFilters', []);
 
 nfc.filter('bytesToHexString', function() {
