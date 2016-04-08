@@ -40,11 +40,11 @@ app.config(function(BackandProvider, $stateProvider, $urlRouterProvider, $httpPr
                 }
             }
         })
-        .state('tab.view', {
-            url: '/view',
+        .state('tab.viewrecords', {
+            url: '/viewrecords',
             views: {
                 'home-tab': {
-                    templateUrl: 'templates/view.html',
+                    templateUrl: 'templates/viewrecords.html',
                     controller: 'NfcCtrl'
                 }
             }
