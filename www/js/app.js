@@ -12,63 +12,62 @@ app.config(function(BackandProvider, $stateProvider, $urlRouterProvider, $httpPr
     
     $stateProvider
         .state('tab', {
-            url: "/tabs",
+            url: '/tabs',
             abstract: true,
-            templateUrl: "templates/tabs.html"
+            templateUrl: 'templates/tabs.html'
         })
-        .state('tab.login', {
+        .state('login', {
+            cache: false,
             url: '/login',
-            views: {
-                'login-tab': {
-                    templateUrl: "templates/login.html",
-                    controller: 'LoginCtrl as login'
-                }
-            }
+            templateUrl: 'templates/login.html',
+            controller: 'LoginCtrl as login'
         })
         .state('tab.home', {
-            url: "/home",
+            url: '/home',
             views: {
                 'home-tab': {
-                    templateUrl: "templates/home.html",
+                    templateUrl: 'templates/home.html',
                     controller: 'HomeTabCtrl'
                 }
             }
         })
         .state('tab.measure', {
-            url: "/measure",
+            url: '/measure',
             views: {
                 'home-tab': {
-                    templateUrl: "templates/measure.html"
+                    templateUrl: 'templates/measure.html',
+                    controller: 'NfcCtrl'
                 }
             }
         })
         .state('tab.view', {
-            url: "/view",
+            url: '/view',
             views: {
                 'home-tab': {
-                    templateUrl: "templates/view.html"
+                    templateUrl: 'templates/view.html',
+                    controller: 'NfcCtrl'
                 }
             }
         })
         .state('tab.about', {
-            url: "/about",
+            url: '/about',
             views: {
                 'about-tab': {
-                    templateUrl: "templates/about.html"
+                    templateUrl: 'templates/about.html'
                 }
             }
         })
         .state('tab.help', {
-            url: "/help",
+            url: '/help',
             views: {
                 'help-tab': {
-                    templateUrl: "templates/help.html"
+                    templateUrl: 'templates/help.html'
                 }
             }
         });
     
     
-    $urlRouterProvider.otherwise("/tabs/home");
+    $urlRouterProvider.otherwise('/login');
     $httpProvider.interceptors.push('APIInterceptor');
     
 });
@@ -76,27 +75,34 @@ app.config(function(BackandProvider, $stateProvider, $urlRouterProvider, $httpPr
 
 // ---------- Controllers ---------- //
 
-app.controller('HomeTabCtrl', function($scope) {
-    console.log('HomeTabCtrl');
-});
+app.controller('HomeTabCtrl', function($scope) {});
 
 app.controller('NfcCtrl', function($scope, nfcService) {
     $scope.tag = nfcService.tag;
-    console.log("nfcService.tag: ", nfcService.tag);
     $scope.clear = function() {
         nfcService.clearTag();
     };
 });
 
-app.controller('LoginCtrl', function (Backand, $state, $rootScope, LoginService) {
+app.controller('LoginCtrl', function (Backand, $state, $rootScope, LoginService, $ionicLoading, $ionicPopup) {
+
     var login = this;
     
     function signin() {
+        $ionicLoading.show();
         LoginService.signin(login.email, login.password)
             .then(function() {
+                $ionicLoading.hide();
                 onLogin();
-            }, function (error) {
-                console.log(error)
+            }, function(error) {
+                $ionicLoading.hide();
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Invalid email/password'
+                });
+                
+                alertPopup.then(function(res) {
+                    console.log(error);
+                });
             })
     }
     
@@ -111,11 +117,12 @@ app.controller('LoginCtrl', function (Backand, $state, $rootScope, LoginService)
     }
     
     function signout() {
+        $ionicLoading.show();
         LoginService.signout()
             .then(function () {
-                $state.go('tab.login');
+                $ionicLoading.hide();
                 $rootScope.$broadcast('logout');
-                $state.go($state.current, {}, {reload: true});
+                $state.go('login', {}, {reload: true});
             })    
     }
     
@@ -130,8 +137,6 @@ app.controller('LoginCtrl', function (Backand, $state, $rootScope, LoginService)
 app.factory('nfcService', function($rootScope, $ionicPlatform) {
 
     var tag = {};
-
-    console.log("Inside app.factory...");
 
     $ionicPlatform.ready(function() {
         nfc.addNdefListener(function(nfcEvent) {
@@ -170,7 +175,7 @@ app.run(function($rootScope, $state, LoginService, Backand) {
     
     function unauthorized() {
         console.log("User is unauthorized, directing to login");
-        $state.go('tab.login');
+        $state.go('login');
     }
     
     function signout() {
@@ -182,10 +187,10 @@ app.run(function($rootScope, $state, LoginService, Backand) {
     });
     
     $rootScope.$on('$stateChangeSuccess', function(event, toState) {
-        if (toState.name == 'tab.login') {
+        if (toState.name == 'login') {
             signout();
         }
-        else if (toState.name != 'tab.login' && Backand.getToken() === undefined) {
+        else if (toState.name != 'login' && Backand.getToken() === undefined) {
             unauthorized();
         }
     });

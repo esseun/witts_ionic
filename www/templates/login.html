@@ -1,20 +1,17 @@
-<ion-view view-title="Login">
-  <ion-content class="padding has-header">
-    <div class="bar bar-header">
-      <span ng-click="login.signout()" class="cancel-create">Sign Out</span>      
-    </div>
+<ion-view view-title="WiTTS: Wireless Temperature Tracking System">
+  <ion-content class="padding has-header"> </br>
     <div class="bar bar-subheader">
       <form ng-submit="login.signin()">
         <div class="list">
           <label class="item item-input">
-            <input id="email" name="email" type="email" placeholder="Your email" ng-model="login.email">
+            <input id="email" name="email" type="email" placeholder="email" ng-model="login.email">
           </label>
           <label class="item item-input">
-            <input id="password" name="password" type="password" placeholder="Your password" ng-model="login.password">
+            <input id="password" name="password" type="password" placeholder="password" ng-model="login.password">
           </label>
         </div>
-        <div class="padding">
-          <button class="button button-block button-positive" type="submit">
+        <div class="button-bar">
+          <button class="button button-outline button-positive icon ion-log-in" type="submit">
             Login
           </button>
         </div>

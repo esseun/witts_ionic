@@ -15,14 +15,14 @@ ls.service('APIInterceptor', function($rootScope, $q) {
 ls.service('LoginService', function(Backand) {
     var service = this;
     
-    service.signin = function (email, password, appName) {
+    service.signin = function(email, password, appName) {
         return Backand.signin(email, password);
     };
     
     // anonymous login disabled
     // service.anonymousLogin= function()  }
     
-    service.signout = function () {
+    service.signout = function() {
         return Backand.signout();
     };
 });
