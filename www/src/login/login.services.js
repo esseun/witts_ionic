@@ -1,4 +1,4 @@
-var ls = angular.module('loginServices', [])
+var ls = angular.module('LoginServices', [])
 
 ls.service('APIInterceptor', function($rootScope, $q) {
     var service = this;

@@ -1,4 +1,4 @@
-var app = angular.module('witts_ionic', ['ionic', 'backand', 'nfcFilters', 'loginServices']);
+var app = angular.module('witts_ionic', ['ionic', 'backand', 'NfcCtrl', 'NfcFilters', 'LoginCtrl', 'LoginServices']);
 
 
 // ---------- States ---------- //
@@ -72,94 +72,9 @@ app.config(function(BackandProvider, $stateProvider, $urlRouterProvider, $httpPr
     
 });
 
-
-// ---------- Controllers ---------- //
-
 app.controller('HomeTabCtrl', function($scope) {});
 
-app.controller('NfcCtrl', function($scope, nfcService) {
-    $scope.tag = nfcService.tag;
-    $scope.clear = function() {
-        nfcService.clearTag();
-    };
-});
-
-app.controller('LoginCtrl', function (Backand, $state, $rootScope, LoginService, $ionicLoading, $ionicPopup) {
-
-    var login = this;
-    
-    function signin() {
-        $ionicLoading.show();
-        LoginService.signin(login.email, login.password)
-            .then(function() {
-                $ionicLoading.hide();
-                onLogin();
-            }, function(error) {
-                $ionicLoading.hide();
-                var alertPopup = $ionicPopup.alert({
-                    title: 'Invalid email/password'
-                });
-                
-                alertPopup.then(function(res) {
-                    console.log(error);
-                });
-            })
-    }
-    
-    // function anonymousLogin(){
-    //     LoginService.anonymousLogin();
-    //     onLogin();
-    // }
-    
-    function onLogin(){
-        $rootScope.$broadcast('authorized');
-        $state.go('tab.home');
-    }
-    
-    function signout() {
-        $ionicLoading.show();
-        LoginService.signout()
-            .then(function () {
-                $ionicLoading.hide();
-                $rootScope.$broadcast('logout');
-                $state.go('login', {}, {reload: true});
-            })    
-    }
-    
-    login.signin = signin;
-    login.signout = signout;
-    // login.anonymousLogin = anonymousLogin;
-});
-
-
 // ---------- Factories ---------- //
-
-app.factory('nfcService', function($rootScope, $ionicPlatform) {
-
-    var tag = {};
-
-    $ionicPlatform.ready(function() {
-        nfc.addNdefListener(function(nfcEvent) {
-            console.log(JSON.stringify(nfcEvent.tag, null, 4));
-            $rootScope.$apply(function(){
-                angular.copy(nfcEvent.tag, tag);
-                // if necessary $state.go('some-route')
-            });
-        }, function() {
-            console.log("Listening for NDEF Tags.");
-        }, function(reason) {
-            alert("Error adding NFC Listener " + reason);
-        });
-    });
-
-    return {
-        tag: tag,
-
-        clearTag: function () {
-            angular.copy({}, this.tag);
-        }
-    };
-});
 
 
 // ---------- Misc ---------- //
