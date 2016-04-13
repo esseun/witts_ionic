@@ -27,7 +27,7 @@ app.config(function(BackandProvider, $stateProvider, $urlRouterProvider, $httpPr
             views: {
                 'home-tab': {
                     templateUrl: 'templates/home.html',
-                    controller: 'HomeTabCtrl'
+                    controller: 'NfcCtrl'
                 }
             }
         })
@@ -72,12 +72,8 @@ app.config(function(BackandProvider, $stateProvider, $urlRouterProvider, $httpPr
     
 });
 
-app.controller('HomeTabCtrl', function($scope) {});
 
-// ---------- Factories ---------- //
-
-
-// ---------- Misc ---------- //
+// ---------- Style ---------- //
 
 app.config(function($ionicConfigProvider) {
     $ionicConfigProvider.navBar.alignTitle('center');
