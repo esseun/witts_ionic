@@ -11,13 +11,13 @@
     <div ng-if="tag.id">
       <div class="card">
         <div class="item item-text-wrap">
-          <div class="card" ng-repeat="record in tag.ndefMessage">
+          <div class="card" ng-repeat="tagData in tag.ndefMessage">
             <div class="item item-divider">
               Temperature Reading (Fahrenheit) <br/>
             </div>
             <div class="item item-text-wrap">
               <dl>
-                <dd>{{ record | decodePayload }}</dd>
+                <dd>{{ tagData | decodePayload }}</dd>
               </dl>
             </div>
           </div>

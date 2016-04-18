@@ -1,32 +1,30 @@
 <!-- Uses NfcCtrl -->
 <ion-view view-title="View Patient Records">
   <ion-content class="padding">
-    <div ng-if="!tag.id">
+    <div ng-if="!tagData.tag.id">
       <div class="card">
         <div class="item item-text-wrap center">
           Scan patient tag to begin.
         </div>
       </div>
     </div>
-    <div ng-if="tag.id">
+    <div ng-if="tagData.tag.id">
       <div class="card">
         <div class="item item-text-wrap">
-          <div class="card" ng-repeat="record in tag.ndefMessage">
-            <div class="item item-divider">
-              Patient ID # <br/>
-            </div>
-            <div class="item item-text-wrap">
-              <dl>
-                <dd>{{ record | decodePayload }}</dd>
-              </dl>
-            </div>
+          <div class="item item-divider">
+            Patient ID # <br/>
+          </div>
+          <div class="item item-text-wrap">
+            <dl>
+              <dd>{{ tagData.patientId }}</dd>
+            </dl>
+            <dl>
+              <dd>{{ tagData.patientRecords.data }}</dd>
+            </dl>
           </div>
         </div>
       </div>
     </div>
-    <!-- div ng-if="tag.id">
-         Retrieve patient temperature data history and draw graph
-         </div -->
     <p>
       <div class="button-bar">
         <a class="button button-outline button-positive icon ion-android-refresh" ng-click="clear()"></a>

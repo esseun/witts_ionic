@@ -1,4 +1,11 @@
-var app = angular.module('witts_ionic', ['ionic', 'backand', 'NfcCtrl', 'NfcFilters', 'LoginCtrl', 'LoginServices']);
+var app = angular.module('witts_ionic', [
+    'ionic',
+    'backand',
+    'NfcCtrl',
+    'NfcFilters',
+    'LoginCtrl',
+    'LoginServices',
+    'common.interceptors.http']);
 
 
 // ---------- States ---------- //
@@ -9,6 +16,8 @@ app.config(function(BackandProvider, $stateProvider, $urlRouterProvider, $httpPr
     BackandProvider.setSignUpToken('c42ca035-f147-4604-bfd7-b965a95164e5');
     // anonymous login disabled
     // BackandProvider.setAnonymousToken('22518bb1-713d-40a5-8844-e959b0ce4394');
+
+    $httpProvider.interceptors.push('HttpInterceptor');
     
     $stateProvider
         .state('tab', {
