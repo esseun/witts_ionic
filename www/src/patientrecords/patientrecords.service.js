@@ -3,25 +3,29 @@ var td = angular.module('PatientRecordsService', []);
 td.factory('PatientRecordsService', function($http, Backand) {
 
     var factory = {
-        getPatientRecords: getPatientRecords
+        getPatientInfo: getPatientInfo,
+        getPatientTempRecords: getPatientTempRecords
     };
     return factory;
-
-    function getUrl() {
-        return Backand.getApiUrl() + '/1/objects/tempData';
-    }
     
-    /*
-    function getPatientRecords() {
-        return $http.get(getUrl());
-    }
-    */
-
-    function getPatientRecords(patientId) {
-        console.log("Inside getPatientRecords http request");
+    function getPatientInfo(patientId) {
+        // [id, patientId, firstName, lastName, assignedTo, dob]
         return $http ({
             method: 'GET',
-            url: Backand.getApiUrl() + '/1/query/data/getPatientRecords',
+            url: Backand.getApiUrl() + '/1/query/data/getPatientInfo',
+            params: {
+                parameters: {
+                    p_id: patientId
+                }
+            }
+        });
+    }
+
+    function getPatientTempRecords(patientId) {
+        // [id, patientId, timeEntered, tempFahrenheit]
+        return $http ({
+            method: 'GET',
+            url: Backand.getApiUrl() + '/1/query/data/getPatientTempRecords',
             params: {
                 parameters: {
                     p_id: patientId

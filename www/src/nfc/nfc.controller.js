@@ -12,24 +12,41 @@ nfc.factory('NfcService', function($rootScope, $ionicPlatform, $filter, PatientR
     var tagData = {
         tag: null,
         patientId: null,
-        patientRecords: []
+        measuredTemp: null,
+        patientInfo: [],
+        patientTempRecords: []
     };
+    var payload = [];
 
     $ionicPlatform.ready(function() {
         nfc.addNdefListener(function(nfcEvent) {
             //console.log(JSON.stringify(nfcEvent.tag, null, 4));
             $rootScope.$apply(function() {
                 tagData.tag = nfcEvent.tag;
-                tagData.patientId = $filter('decodePayload')(tagData.tag.ndefMessage[0]);
-                PatientRecordsService.getPatientRecords(tagData.patientId)
+                payload = $filter('decodePayload')(tagData.tag.ndefMessage[0]);
+                tagData.patientId = payload[0];
+                tagData.measuredTemp = payload[1];
+
+                PatientRecordsService.getPatientInfo(tagData.patientId)
                     .then(
                         function(response) {
-                            tagData.patientRecords = response
+                            tagData.patientInfo = response.data
                         },
                         function(httpError) {
                             throw httpError.status + " : " +
                                 httpError.data;
                         });
+
+                PatientRecordsService.getPatientTempRecords(tagData.patientId)
+                    .then(
+                        function(response) {
+                            tagData.patientTempRecords = response.data
+                        },
+                        function(httpError) {
+                            throw httpError.status + " : " +
+                                httpError.data;
+                        });
+
             });
             console.log("Tag: ", tagData.tag);
             console.log("PatientId: ", tagData.patientId);

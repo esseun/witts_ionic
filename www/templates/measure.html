@@ -1,25 +1,40 @@
 <!-- Uses NfcCtrl -->
 <ion-view view-title="Measure & Record Temperature">
   <ion-content class="padding">
-    <div ng-if="!tag.id">
+    <div ng-if="!tagData.tag.id">
       <div class="card">
         <div class="item item-text-wrap center">
           Scan the WiTTS temperature sensor to begin.
         </div>
       </div>
     </div>
-    <div ng-if="tag.id">
+    <div ng-if="tagData.tag.id">
       <div class="card">
         <div class="item item-text-wrap">
-          <div class="card" ng-repeat="tagData in tag.ndefMessage">
-            <div class="item item-divider">
-              Temperature Reading (Fahrenheit) <br/>
-            </div>
-            <div class="item item-text-wrap">
-              <dl>
-                <dd>{{ tagData | decodePayload }}</dd>
-              </dl>
-            </div>
+          <div class="item item-divider" style="font-size:150%">
+            Patient Information <br/>
+          </div>
+          <div class="item item-text-wrap">
+            <dl>
+              <dd>Name: {{ tagData.patientInfo[0].firstName }} {{ tagData.patientInfo[0].lastName }}</dd>
+            </dl>
+            <dl>
+              <dd>DOB: {{ tagData.patientInfo[0].dob }}</dd>
+            </dl>
+            <dl>
+              <dd>Assigned to: {{ tagData.patientInfo[0].assignedTo }}</dd>
+            </dl>
+            <dl>
+              <dd>Temperature last taken: {{ tagData.patientTempRecords[0].timeEntered }}</dd>
+            </dl>
+          </div>
+          <div class="item item-divider" style="font-size:125%">
+            Measured Temperature (Fahrenheit) <br/>
+          </div>
+          <div class="item item-text-wrap">
+            <dl>
+              <dd>{{ tagData.measuredTemp }}</dd>
+            </dl>
           </div>
         </div>
       </div>

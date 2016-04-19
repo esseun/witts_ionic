@@ -93,8 +93,9 @@ nfc.filter('decodePayload', function() {
             
             payload = nfc.bytesToString(printableData);
         }
-        
-        return payload;
+
+        // split the patientId and temperature fields
+        return payload.split(" ");
     }
     
     return function(input) {

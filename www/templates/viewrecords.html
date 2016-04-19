@@ -9,19 +9,14 @@
       </div>
     </div>
     <div ng-if="tagData.tag.id">
-      <div class="card">
+      <div class="item item-divider" style="font-size:150%">
+        Temperature Records for: {{ tagData.patientInfo[0].firstName }} {{ tagData.patientInfo[0].lastName }} <br/>
+      </div>
+      <div class="card" ng-repeat="tempRecord in tagData.patientTempRecords">
         <div class="item item-text-wrap">
-          <div class="item item-divider">
-            Patient ID # <br/>
-          </div>
-          <div class="item item-text-wrap">
-            <dl>
-              <dd>{{ tagData.patientId }}</dd>
-            </dl>
-            <dl>
-              <dd>{{ tagData.patientRecords.data }}</dd>
-            </dl>
-          </div>
+          <dl>
+            <dd>{{ tempRecord.timeEntered }} : {{ tempRecord.tempFahrenheit }}F</dd>
+          </dl>
         </div>
       </div>
     </div>
