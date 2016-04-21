@@ -1,4 +1,3 @@
-<!-- Uses NfcCtrl -->
 <ion-view view-title="View Patient Records">
   <ion-content class="padding">
     <div ng-if="!tagData.tag.id">
@@ -10,12 +9,12 @@
     </div>
     <div ng-if="tagData.tag.id">
       <div class="item item-divider" style="font-size:150%">
-        Temperature Records for: {{ tagData.patientInfo[0].firstName }} {{ tagData.patientInfo[0].lastName }} <br/>
+        Patient Name: {{ tagData.patientInfo[0].firstName }} {{ tagData.patientInfo[0].lastName }} <br/>
       </div>
       <div class="card" ng-repeat="tempRecord in tagData.patientTempRecords">
         <div class="item item-text-wrap">
           <dl>
-            <dd>{{ tempRecord.timeEntered }} : {{ tempRecord.tempFahrenheit }}F</dd>
+            <dd>{{ tempRecord.timeEntered | date:'yyyy-MM-dd -- h:mma' }} : {{ tempRecord.tempFahrenheit }}F</dd>
           </dl>
         </div>
       </div>

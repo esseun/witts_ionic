@@ -36,7 +36,7 @@ lc.controller('LoginCtrl', function (Backand, $state, $rootScope, LoginService, 
         $ionicLoading.show();
         LoginService.signout()
             .then(function () {
-                    $ionicLoading.hide();
+                $ionicLoading.hide();
                 $rootScope.$broadcast('logout');
                 $state.go('login', {}, {reload: true});
             })

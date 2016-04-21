@@ -1,10 +1,11 @@
 var td = angular.module('PatientRecordsService', []);
 
-td.factory('PatientRecordsService', function($http, Backand) {
+td.factory('PatientRecordsService', function($http, $filter, Backand) {
 
     var factory = {
         getPatientInfo: getPatientInfo,
-        getPatientTempRecords: getPatientTempRecords
+        getPatientTempRecords: getPatientTempRecords,
+        postPatientTempRecords: postPatientTempRecords
     };
     return factory;
     
@@ -29,6 +30,22 @@ td.factory('PatientRecordsService', function($http, Backand) {
             params: {
                 parameters: {
                     p_id: patientId
+                }
+            }
+        });
+    }
+
+    function postPatientTempRecords(patientId, tempF) {
+        var currTime = $filter('date')(new Date(), 'yyyy-MM-ddTHH:mm:ss');
+        console.log("currTIme: ", currTime);
+        return $http ({
+            method: 'GET',
+            url: Backand.getApiUrl() + '/1/query/data/postPatientTempRecords',
+            params: {
+                parameters: {
+                    p_id: patientId,
+                    currTime: currTime,
+                    temp: tempF
                 }
             }
         });

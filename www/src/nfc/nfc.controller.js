@@ -2,12 +2,15 @@ var nfc = angular.module('NfcCtrl', ['PatientRecordsService'])
 
 nfc.controller('NfcCtrl', function($scope,  NfcService) {
     $scope.tagData = NfcService.tagData;
+    $scope.postTemp = function(patientId, tempF) {
+        NfcService.postPatientTempRecords(patientId, tempF);
+    };
     $scope.clear = function() {
         NfcService.clearTag();
     };
 });
 
-nfc.factory('NfcService', function($rootScope, $ionicPlatform, $filter, PatientRecordsService) {
+nfc.factory('NfcService', function($rootScope, $ionicPlatform, $ionicLoading, $ionicPopup, $filter, PatientRecordsService) {
 
     var tagData = {
         tag: null,
@@ -59,6 +62,23 @@ nfc.factory('NfcService', function($rootScope, $ionicPlatform, $filter, PatientR
 
     return {
         tagData: tagData,
+        postPatientTempRecords: function(patientId, tempF) {
+            PatientRecordsService.postPatientTempRecords(patientId, tempF)
+                .then(
+                    function(reponse) {
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Temperature successfully recorded'
+                        });
+
+                        alertPopup.then(function(res) {
+                            angular.copy({}, tagData);
+                        });
+                    },
+                    function(httpError) {
+                        throw httpError.status + " : " +
+                            httpError.data;
+                    });
+        },
         clearTag: function() {
             angular.copy({}, this.tagData);
         }

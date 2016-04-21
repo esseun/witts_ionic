@@ -1,4 +1,3 @@
-<!-- Uses NfcCtrl -->
 <ion-view view-title="Measure & Record Temperature">
   <ion-content class="padding">
     <div ng-if="!tagData.tag.id">
@@ -19,13 +18,13 @@
               <dd>Name: {{ tagData.patientInfo[0].firstName }} {{ tagData.patientInfo[0].lastName }}</dd>
             </dl>
             <dl>
-              <dd>DOB: {{ tagData.patientInfo[0].dob }}</dd>
+              <dd>DOB: {{ tagData.patientInfo[0].dob | date:'MMM dd, yyyy' }}</dd>
             </dl>
             <dl>
               <dd>Assigned to: {{ tagData.patientInfo[0].assignedTo }}</dd>
             </dl>
             <dl>
-              <dd>Temperature last taken: {{ tagData.patientTempRecords[0].timeEntered }}</dd>
+              <dd>Temperature last taken: {{ tagData.patientTempRecords[0].timeEntered | date:'yyyy-MM-dd -- h:mma' }}</dd>
             </dl>
           </div>
           <div class="item item-divider" style="font-size:125%">
@@ -38,11 +37,19 @@
           </div>
         </div>
       </div>
+      </br>
+      </br>
+      <p>
+        <div class="button-bar">
+          <a class="button button-outline button-positive icon ion-record" ng-click="postTemp(tagData.patientId, tagData.measuredTemp)">   Record</a>
+        </div>
+      </p>
+      </br>
+      <p>
+        <div class="button-bar">
+          <a class="button button-outline button-positive icon ion-trash-b" ng-click="clear()">   Clear</a>
+        </div>
+      </p>
     </div>
-    <p>
-      <div class="button-bar">
-        <a class="button button-outline button-positive icon ion-trash-b" ng-click="clear()"></a>
-      </div>
-    </p>
   </ion-content>
 </ion-view>
