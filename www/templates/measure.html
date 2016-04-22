@@ -2,7 +2,7 @@
   <ion-content class="padding">
     <div ng-if="!tagData.tag.id">
       <div class="card">
-        <div class="item item-text-wrap center">
+        <div class="item item-text-wrap center" style="font-size:150%" align="center">
           Scan the WiTTS temperature sensor to begin.
         </div>
       </div>
@@ -10,7 +10,7 @@
     <div ng-if="tagData.tag.id">
       <div class="card">
         <div class="item item-text-wrap">
-          <div class="item item-divider" style="font-size:150%">
+          <div class="item item-divider" style="font-size:150%" align="center">
             Patient Information <br/>
           </div>
           <div class="item item-text-wrap">
@@ -24,10 +24,10 @@
               <dd>Assigned to: {{ tagData.patientInfo[0].assignedTo }}</dd>
             </dl>
             <dl>
-              <dd>Temperature last taken: {{ tagData.patientTempRecords[0].timeEntered | date:'yyyy-MM-dd -- h:mma' }}</dd>
+              <dd>Temperature last taken: {{ tagData.patientTempRecords[0].timeEntered | date:'yyyy-MM-dd @h:mma' }}</dd>
             </dl>
           </div>
-          <div class="item item-divider" style="font-size:125%">
+          <div class="item item-divider" style="font-size:125%" align="center">
             Measured Temperature (Fahrenheit) <br/>
           </div>
           <div class="item item-text-wrap">

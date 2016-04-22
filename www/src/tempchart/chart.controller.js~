@@ -1,0 +1,1 @@
+var nfc = angular.module('ChartCtrl', ['chart.js'])

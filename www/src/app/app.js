@@ -5,6 +5,7 @@ var app = angular.module('witts_ionic', [
     'NfcFilters',
     'LoginCtrl',
     'LoginServices',
+    'TempChartCtrl',
     'common.interceptors.http']);
 
 
@@ -18,7 +19,7 @@ app.config(function(BackandProvider, $stateProvider, $urlRouterProvider, $httpPr
     // BackandProvider.setAnonymousToken('22518bb1-713d-40a5-8844-e959b0ce4394');
 
     $httpProvider.interceptors.push('HttpInterceptor');
-    
+
     $stateProvider
         .state('tab', {
             url: '/tabs',
@@ -55,6 +56,10 @@ app.config(function(BackandProvider, $stateProvider, $urlRouterProvider, $httpPr
                 'home-tab': {
                     templateUrl: 'templates/viewrecords.html',
                     controller: 'NfcCtrl'
+                },
+                'tempchart@tab.viewrecords': {
+                    templateUrl: 'templates/tempchart.html',
+                    controller: 'TempChartCtrl'
                 }
             }
         })
@@ -74,11 +79,11 @@ app.config(function(BackandProvider, $stateProvider, $urlRouterProvider, $httpPr
                 }
             }
         });
-    
-    
+
+
     $urlRouterProvider.otherwise('/login');
     $httpProvider.interceptors.push('APIInterceptor');
-    
+
 });
 
 
@@ -92,20 +97,20 @@ app.config(function($ionicConfigProvider) {
 // ---------- Start Up ---------- //
 
 app.run(function($rootScope, $state, LoginService, Backand) {
-    
+
     function unauthorized() {
         console.log("User is unauthorized, directing to login");
         $state.go('login');
     }
-    
+
     function signout() {
         LoginService.signout();
     }
-    
+
     $rootScope.$on('unauthorized', function() {
         unauthorized();
     });
-    
+
     $rootScope.$on('$stateChangeSuccess', function(event, toState) {
         if (toState.name == 'login') {
             signout();
@@ -114,7 +119,7 @@ app.run(function($rootScope, $state, LoginService, Backand) {
             unauthorized();
         }
     });
-    
+
 });
 
 app.run(function($ionicPlatform) {

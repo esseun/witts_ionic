@@ -2,27 +2,33 @@
   <ion-content class="padding">
     <div ng-if="!tagData.tag.id">
       <div class="card">
-        <div class="item item-text-wrap center">
-          Scan patient tag to begin.
+        <div class="item item-text-wrap center" style="font-size:150%" align="center">
+          Scan the WiTTS temperature sensor to begin.
         </div>
       </div>
     </div>
     <div ng-if="tagData.tag.id">
-      <div class="item item-divider" style="font-size:150%">
-        Patient Name: {{ tagData.patientInfo[0].firstName }} {{ tagData.patientInfo[0].lastName }} <br/>
-      </div>
-      <div class="card" ng-repeat="tempRecord in tagData.patientTempRecords">
+      <div class="card">
         <div class="item item-text-wrap">
-          <dl>
-            <dd>{{ tempRecord.timeEntered | date:'yyyy-MM-dd -- h:mma' }} : {{ tempRecord.tempFahrenheit }}F</dd>
-          </dl>
+          <div class="item item-divider" style="font-size:150%" align="center">
+            Temperature History (Fahrenheit)
+          </div>
+          <div class="item item-text-wrap" style="font-size:120%" align="center">
+            <dd>{{ tagData.patientInfo[0].firstName }} {{ tagData.patientInfo[0].lastName }}</dd>
+          </div>
+          <div class="item item-text-wrap" align="center">
+              <dd>Temperature last taken: {{ tagData.patientTempRecords[0].timeEntered | date:'yyyy-MM-dd @h:mma' }}</dd>
+          </div>
         </div>
       </div>
+      <br/>
+      <div ui-view="tempchart"></div>
     </div>
+    <br/>
     <p>
       <div class="button-bar">
-        <a class="button button-outline button-positive icon ion-android-refresh" ng-click="clear()"></a>
+        <a class="button button-outline button-positive icon ion-android-refresh" ng-click="clear()">   Clear</a>
       </div>
     </p>
-  </ion-content>
+</ion-content>
 </ion-view>
