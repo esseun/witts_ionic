@@ -15,16 +15,16 @@
           </div>
           <div class="item item-text-wrap">
             <dl>
-              <dd>Name: {{ tagData.patientInfo[0].firstName }} {{ tagData.patientInfo[0].lastName }}</dd>
+              <dd><b>Name:</b> {{ tagData.patientInfo[0].firstName }} {{ tagData.patientInfo[0].lastName }}</dd>
             </dl>
             <dl>
-              <dd>DOB: {{ tagData.patientInfo[0].dob | date:'MMM dd, yyyy' }}</dd>
+              <dd><b>DOB:</b> {{ tagData.patientInfo[0].dob | date:'MMM dd, yyyy' }}</dd>
             </dl>
             <dl>
-              <dd>Assigned to: {{ tagData.patientInfo[0].assignedTo }}</dd>
+              <dd><b>Assigned to:</b> {{ tagData.patientInfo[0].assignedTo }}</dd>
             </dl>
             <dl>
-              <dd>Temperature last taken: {{ tagData.patientTempRecords[0].timeEntered | date:'yyyy-MM-dd @h:mma' }}</dd>
+              <dd><b>Temperature last taken:</b> {{ tagData.patientTempRecords[0].timeEntered | date:'yyyy-MM-dd @h:mma' }}</dd>
             </dl>
           </div>
           <div class="item item-divider" style="font-size:125%" align="center">
@@ -32,7 +32,7 @@
           </div>
           <div class="item item-text-wrap">
             <dl>
-              <dd>{{ tagData.measuredTemp }}</dd>
+              <dd><b>{{ tagData.measuredTemp }}</b></dd>
             </dl>
           </div>
         </div>
