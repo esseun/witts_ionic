@@ -16,9 +16,6 @@
           <div class="item item-text-wrap" style="font-size:120%" align="center">
             <dd><b>{{ tagData.patientInfo[0].firstName }} {{ tagData.patientInfo[0].lastName }}</b></dd>
           </div>
-          <div align="center">
-            <dd><b>Temperature last taken:</b> {{ tagData.patientTempRecords[0].timeEntered | date:'yyyy-MM-dd @h:mma' }}</dd>
-          </div>
         </div>
       </div>
       <div ui-view="tempchart"></div>

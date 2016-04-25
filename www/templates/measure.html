@@ -24,7 +24,7 @@
               <dd><b>Assigned to:</b> {{ tagData.patientInfo[0].assignedTo }}</dd>
             </dl>
             <dl>
-              <dd><b>Temperature last taken:</b> {{ tagData.patientTempRecords[0].timeEntered | date:'yyyy-MM-dd @h:mma' }}</dd>
+              <dd><b>Temperature last taken:</b> {{ patientTempRecords.timeEntered[patientTempRecords.timeEntered.length - 1] | date:'yyyy-MM-dd @h:mma' }}</dd>
             </dl>
           </div>
           <div class="item item-divider" style="font-size:125%" align="center">

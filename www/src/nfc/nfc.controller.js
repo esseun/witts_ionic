@@ -2,6 +2,7 @@ var nfc = angular.module('NfcCtrl', ['PatientRecordsService'])
 
 nfc.controller('NfcCtrl', function($scope,  NfcService) {
     $scope.tagData = NfcService.tagData;
+    $scope.patientTempRecords = NfcService.patientTempRecords;
     $scope.postTemp = function(patientId, tempF) {
         NfcService.postPatientTempRecords(patientId, tempF);
     };
@@ -16,10 +17,16 @@ nfc.factory('NfcService', function($rootScope, $ionicPlatform, $ionicLoading, $i
         tag: null,
         patientId: null,
         measuredTemp: null,
-        patientInfo: [],
-        patientTempRecords: []
+        patientInfo: []
     };
+    var patientTempRecords = {
+        timeEntered: [],
+        tempFahrenheit: []
+    };
+
     var payload = [];
+    var timeEntered = [];
+    var tempFahrenheit = [];
 
     $ionicPlatform.ready(function() {
         nfc.addNdefListener(function(nfcEvent) {
@@ -29,6 +36,8 @@ nfc.factory('NfcService', function($rootScope, $ionicPlatform, $ionicLoading, $i
                 payload = $filter('decodePayload')(tagData.tag.ndefMessage[0]);
                 tagData.patientId = payload[0];
                 tagData.measuredTemp = payload[1];
+                timeEntered = [];
+                tempFahrenheit = [];
 
                 PatientRecordsService.getPatientInfo(tagData.patientId)
                     .then(
@@ -36,6 +45,11 @@ nfc.factory('NfcService', function($rootScope, $ionicPlatform, $ionicLoading, $i
                             tagData.patientInfo = response.data
                         },
                         function(httpError) {
+                            $ionicPopup.alert({
+                                title: 'Error connecting to server - please try again'
+                            }).then(function(res) {
+                                angular.copy({}, tagData);
+                            });
                             throw httpError.status + " : " +
                                 httpError.data;
                         });
@@ -43,9 +57,23 @@ nfc.factory('NfcService', function($rootScope, $ionicPlatform, $ionicLoading, $i
                 PatientRecordsService.getPatientTempRecords(tagData.patientId)
                     .then(
                         function(response) {
-                            tagData.patientTempRecords = response.data
+                            for (i = response.data.length; i > 0; i--) {
+                                if (i == response.data.length - 5) {
+                                    // by default display 5 most recent measurements
+                                    break;
+                                }
+                                timeEntered.unshift($filter('date')(response.data[i-1].timeEntered, 'yyyy-MM-dd @h:mma'));
+                                tempFahrenheit.unshift(response.data[i-1].tempFahrenheit);
+                            }
+                            patientTempRecords.timeEntered = timeEntered;
+                            patientTempRecords.tempFahrenheit = tempFahrenheit;
                         },
                         function(httpError) {
+                            $ionicPopup.alert({
+                                title: 'Error connecting to server - please try again'
+                            }).then(function(res) {
+                                angular.copy({}, tagData);
+                            });
                             throw httpError.status + " : " +
                                 httpError.data;
                         });
@@ -62,19 +90,24 @@ nfc.factory('NfcService', function($rootScope, $ionicPlatform, $ionicLoading, $i
 
     return {
         tagData: tagData,
+        patientTempRecords: patientTempRecords,
         postPatientTempRecords: function(patientId, tempF) {
             PatientRecordsService.postPatientTempRecords(patientId, tempF)
                 .then(
-                    function(reponse) {
-                        var alertPopup = $ionicPopup.alert({
+                    function(rseponse) {
+                        $ionicPopup.alert({
                             title: 'Temperature successfully recorded'
-                        });
-
-                        alertPopup.then(function(res) {
+                        }).then(function(res) {
                             angular.copy({}, tagData);
                         });
                     },
                     function(httpError) {
+                        $ionicPopup.alert({
+                            title: 'Error connecting to server - please try again'
+                        }).then(function(res) {
+                            angular.copy({}, tagData);
+                        });
+                        
                         throw httpError.status + " : " +
                             httpError.data;
                     });
