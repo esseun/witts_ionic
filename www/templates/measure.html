@@ -21,7 +21,7 @@
               <dd><b>DOB:</b> {{ tagData.patientInfo[0].dob | date:'MMM dd, yyyy' }}</dd>
             </dl>
             <dl>
-              <dd><b>Assigned to:</b> {{ tagData.patientInfo[0].assignedTo }}</dd>
+              <dd><b>Appointed nurse:</b> {{ tagData.patientInfo[0].assignedTo }}</dd>
             </dl>
             <dl>
               <dd><b>Temperature last taken:</b> {{ patientTempRecords.timeEntered[patientTempRecords.timeEntered.length - 1] | date:'yyyy-MM-dd @h:mma' }}</dd>

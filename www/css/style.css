@@ -3,10 +3,12 @@
     font-size:28px;
 }
 
-.margin-border {
-    border: 1px solid black;
-    margin-left: 1px;
-    margin-right: 1px;
-    padding-left: 1px;
-    padding-right: 1px;
+.margin-padding {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+li {
+    margin-left: 25px;
+    list-style-type: circle;
 }

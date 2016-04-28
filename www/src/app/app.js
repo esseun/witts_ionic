@@ -6,6 +6,7 @@ var app = angular.module('witts_ionic', [
     'LoginCtrl',
     'LoginServices',
     'TempChartCtrl',
+    'HelpCtrl',
     'common.interceptors.http']);
 
 
@@ -75,7 +76,8 @@ app.config(function(BackandProvider, $stateProvider, $urlRouterProvider, $httpPr
             url: '/help',
             views: {
                 'help-tab': {
-                    templateUrl: 'templates/help.html'
+                    templateUrl: 'templates/help.html',
+                    controller: 'HelpCtrl'
                 }
             }
         });

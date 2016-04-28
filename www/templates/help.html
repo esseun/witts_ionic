@@ -1,5 +1,101 @@
 <ion-view title="Help">
-  <ion-content>
-    <h3>Documentation</h3>
+  <ion-content class="margin-padding">
+    <div id="top" align="center">
+      <h1>Documentation</h1>
+    </div>
+    <h3>
+      <a ng-click="scrollTo('getting_started')"><u>Getting Started with WiTTS</u></a></br>
+      <a ng-click="scrollTo('measure_and_record')"><u>Measure & Record Temperature</u></a></br>
+      <a ng-click="scrollTo('view_patient_records')"><u>View Patient Records</u></a></br>
+      <a ng-click="scrollTo('known_issues')"><u>Known Issues</u></a></br>
+      <a ng-click="scrollTo('support')"><u>Support</u></a></br>
+    </h3>
+    </br></br></br></br></br>
+
+    <div id="getting_started" align="justify">
+      <h3>Getting Started with WiTTS</h3>
+      There are three prerequisites to using the WiTTS system:</br>
+      <ul>
+        <li>An NFC enabled mobile device with the WiTTS Mobile Application installed</li>
+        <li>A valid user account in Back&</li>
+        <li>A WiTTS Temperature Sensor</li>
+      </ul>
+      For additional information on how to obtain all of the above, please refer to "Support".</br></br>
+      <a ng-click="scrollTo('top')"><u>Back to top</u></a>
+    </div>
+    </br></br></br></br></br>
+
+    <div id="measure_and_record" align="justify">
+      <h3>Measure & Record Temperature</h3>
+      'Measure & Record Temperature' can be accessed through the 'Home' tab. This feature effectively measures the patient's temperature and presents an option for the user to record the temperature (in Fahrenheit) under the patient's ID number in the patient records database hosted on Back&. To begin, simply tap the WiTTS Temperature Sensor near the NFC sensor of the mobile device. Upon successful connection with the device, the following information will be displayed:</br>
+      <ul>
+        <li>Patient name</li>
+        <li>Date of birth</li>
+        <li>Assigned nurse</li>
+        <li>Temperature last taken</li>
+        <li>Measured temperature (Fahrenheit)</li>
+      </ul></br>
+      <!-- add screen shot -->
+      <font color="red">
+        *** Note ***</br>
+        <ul>
+          <li>A second scan may be required on first use of the application due to an unresolved issue in the NFC library.</li>
+          <li>Information fetched from the Back& server may be delayed as a result of an unstable or slow internet connection. In this case, please wait a few seconds or clear the record and try again.</li>
+        </ul></br>
+      </font>
+      Once the user confirms the information presented, s/he may proceed to record the temperature associated with the patient by pressing the 'Record' button. A dialog box will appear to inform the user of a successful transmission.</br></br>
+      <a ng-click="scrollTo('top')"><u>Back to top</u></a>
+    </div>
+    </br></br></br></br></br>
+
+    <div id="view_patient_records" align="justify">
+      <h3>View Patient Records</h3>
+      'View Patient Records' can be accessed through the 'Home' tab. WiTTS allows for the user to check the temperature history (up to the 5 most recent measurements) of the patient. To begin, simply tap the WiTTS Temperature Sensor near the NFC sensor of the mobile device. Upon successful connection, the following information will be displayed:</br></br>
+      <!-- add screen shot -->
+      <font color="red">
+        *** Note ***</br>
+        <ul>
+          <li>A second scan may be required on first use of the application due to an unresolved issue in the NFC library.</li>
+          <li>Information fetched from the Back& server may be delayed as a result of an unstable or slow internet connection. In this case, please wait a few seconds or clear the record and try again.</li>
+        </ul>
+      </font>
+      </br>
+      <a ng-click="scrollTo('top')"><u>Back to top</u></a>
+    </div>
+    </br></br></br></br></br>
+
+    <div id="known_issues" align="justify">
+      <h3>Known Issues</h3>
+      The following are known issues for WiTTS:</br>
+      <ul>
+        <li><a href="https://github.com/chariotsolutions/phonegap-nfc/issues/144">First scan of the NFC Temperature Sensor may fail due to unresolved issues in the NFC library</a></li>
+      </ul>
+      </br>
+      <a ng-click="scrollTo('top')"><u>Back to top</u></a>
+    </div>
+    </br></br></br></br>
+    <div id="support" align="justify">
+      <h3>Support</h3>
+      The WiTTS project will not be actively maintained but is open for support. The author can be reached by email at the address below:</br>
+      <ul>
+        <li>Jason Choi</li>
+        <li>esseun@gmail.com</li>
+      </ul>
+      Requests for WiTTS user accounts or WiTTS Temperature Sensor hardware can also be directed to the contact information listed above.</br></br>
+
+      Source code is available for viewing and modification under the GNU General Public License agreement on GitHub: </br></br>
+
+      WiTTS Androiid Mobile Application </br>
+      <a href="https://github.com/esseun/witts_ionic" rel="external">
+        https://github.com/esseun/witts_ionic
+      </a> </br>
+      WiTTS Temperature Sensor Software </br>
+      <a href="https://github.com/esseun/witts_msp430fr5969" rel="external">
+        https://github.com/esseun/witts_msp430fr5969
+      </a></br></br>
+
+      Please note that any publishing of WiTTS source code is strictly prohibited unless first approved by the author (Jason Choi).</br></br>
+      <a ng-click="scrollTo('top')"><u>Back to top</u></a>
+    </div>
   </ion-content>
 </ion-view>
