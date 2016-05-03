@@ -1,6 +1,6 @@
-var lc = angular.module('LoginCtrl', [])
+var wittsLogin = angular.module('LoginCtrl', [])
 
-lc.controller('LoginCtrl', function ($state, $rootScope, LoginService, $ionicLoading, $ionicPopup, Backand) {
+wittsLogin.controller('LoginCtrl', function ($state, $rootScope, LoginService, $ionicLoading, $ionicPopup, Backand) {
 
     var login = this;
 

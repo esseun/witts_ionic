@@ -1,6 +1,6 @@
-var td = angular.module('PatientRecordsService', []);
+var wittsHttp = angular.module('PatientRecordsService', []);
 
-td.factory('PatientRecordsService', function($http, $filter, Backand) {
+wittsHttp.factory('PatientRecordsService', function($http, $filter, Backand) {
 
     var factory = {
         getPatientInfo: getPatientInfo,

@@ -1,6 +1,6 @@
-var nfc = angular.module('NfcCtrl', ['PatientRecordsService'])
+var wittsNfc = angular.module('NfcCtrl', ['PatientRecordsService'])
 
-nfc.controller('NfcCtrl', function($scope,  NfcService) {
+wittsNfc.controller('NfcCtrl', function($scope,  NfcService) {
     $scope.tagData = NfcService.tagData;
     $scope.patientTempRecords = NfcService.patientTempRecords;
     $scope.postTemp = function(patientId, tempF) {
@@ -11,8 +11,7 @@ nfc.controller('NfcCtrl', function($scope,  NfcService) {
     };
 });
 
-nfc.factory('NfcService', function($rootScope, $ionicPlatform, $ionicLoading, $ionicPopup, $filter, PatientRecordsService) {
-
+wittsNfc.factory('NfcService', function($rootScope, $ionicPlatform, $ionicLoading, $ionicPopup, $filter, PatientRecordsService) {
     var tagData = {
         tag: null,
         patientId: null,
@@ -77,7 +76,6 @@ nfc.factory('NfcService', function($rootScope, $ionicPlatform, $ionicLoading, $i
                             throw httpError.status + " : " +
                                 httpError.data;
                         });
-
             });
             console.log("Tag: ", tagData.tag);
             console.log("PatientId: ", tagData.patientId);

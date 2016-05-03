@@ -1,6 +1,6 @@
-var nfc = angular.module('NfcFilters', []);
+var wittsNfcFilter = angular.module('NfcFilters', []);
 
-nfc.filter('bytesToHexString', function() {
+wittsNfcFilter.filter('bytesToHexString', function() {
     return function (input) {
         if (window.nfc) {
             return nfc.bytesToHexString(input);
@@ -10,7 +10,7 @@ nfc.filter('bytesToHexString', function() {
     };
 });
 
-nfc.filter('bytesToString', function() {
+wittsNfcFilter.filter('bytesToString', function() {
     return function(input) {
         if (window.nfc) {
             return nfc.bytesToString(input);
@@ -20,7 +20,7 @@ nfc.filter('bytesToString', function() {
     };
 });
 
-nfc.filter('tnfToString', function() {
+wittsNfcFilter.filter('tnfToString', function() {
     
     function tnfToString(tnf) {
         var value = tnf;
@@ -65,7 +65,7 @@ nfc.filter('tnfToString', function() {
     };
 });
 
-nfc.filter('decodePayload', function() {
+wittsNfcFilter.filter('decodePayload', function() {
     
     function decodePayload(record) {
         

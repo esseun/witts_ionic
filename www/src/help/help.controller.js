@@ -1,6 +1,6 @@
-var hc = angular.module('HelpCtrl', [])
+var wittsHelp = angular.module('HelpCtrl', [])
 
-hc.controller('HelpCtrl', function($scope, $location, $anchorScroll) {
+wittsHelp.controller('HelpCtrl', function($scope, $location, $anchorScroll) {
     $scope.scrollTo = function(id) {
         var old = $location.hash();
         $location.hash(id);

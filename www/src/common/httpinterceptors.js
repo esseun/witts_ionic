@@ -1,6 +1,6 @@
-var hi = angular.module('common.interceptors.http', []);
+var wittsHttpInterceptor = angular.module('common.interceptors.http', []);
 
-hi.factory('HttpInterceptor', function HttpInterceptor($q, Backand) {
+wittsHttpInterceptor.factory('HttpInterceptor', function HttpInterceptor($q, Backand) {
     return {
         requestError: function (rejection) {
             return $q.reject(rejection);

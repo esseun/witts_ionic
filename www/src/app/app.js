@@ -1,4 +1,4 @@
-var app = angular.module('witts_ionic', [
+var wittsApp = angular.module('witts_ionic', [
     'ionic',
     'backand',
     'NfcCtrl',
@@ -12,7 +12,7 @@ var app = angular.module('witts_ionic', [
 
 // ---------- States ---------- //
 
-app.config(function(BackandProvider, $stateProvider, $urlRouterProvider, $httpProvider) {
+wittsApp.config(function(BackandProvider, $stateProvider, $urlRouterProvider, $httpProvider) {
 
     BackandProvider.setAppName('witts');
     BackandProvider.setSignUpToken('c42ca035-f147-4604-bfd7-b965a95164e5');
@@ -91,14 +91,14 @@ app.config(function(BackandProvider, $stateProvider, $urlRouterProvider, $httpPr
 
 // ---------- Style ---------- //
 
-app.config(function($ionicConfigProvider) {
+wittsApp.config(function($ionicConfigProvider) {
     $ionicConfigProvider.navBar.alignTitle('center');
 });
 
 
 // ---------- Start Up ---------- //
 
-app.run(function($rootScope, $state, LoginService, Backand) {
+wittsApp.run(function($rootScope, $state, LoginService, Backand) {
 
     function unauthorized() {
         console.log("User is unauthorized, directing to login");
@@ -124,7 +124,7 @@ app.run(function($rootScope, $state, LoginService, Backand) {
 
 });
 
-app.run(function($ionicPlatform) {
+wittsApp.run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
         if(window.cordova && window.cordova.plugins.Keyboard) {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
