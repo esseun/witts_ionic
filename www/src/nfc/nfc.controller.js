@@ -29,21 +29,26 @@ wittsNfc.factory('NfcService', function($rootScope, $ionicPlatform, $ionicLoadin
 
     $ionicPlatform.ready(function() {
         nfc.addNdefListener(function(nfcEvent) {
-            //console.log(JSON.stringify(nfcEvent.tag, null, 4));
+            // clear data from previous scan
+            angular.copy({}, tagData);
+            timeEntered = [];
+            tempFahrenheit = [];
+            $ionicLoading.show();
+            // get data for new scan
             $rootScope.$apply(function() {
                 tagData.tag = nfcEvent.tag;
                 payload = $filter('decodePayload')(tagData.tag.ndefMessage[0]);
                 tagData.patientId = payload[0];
                 tagData.measuredTemp = payload[1];
-                timeEntered = [];
-                tempFahrenheit = [];
 
                 PatientRecordsService.getPatientInfo(tagData.patientId)
                     .then(
                         function(response) {
                             tagData.patientInfo = response.data
+                            $ionicLoading.hide();
                         },
                         function(httpError) {
+                            $ionicLoading.hide();
                             $ionicPopup.alert({
                                 title: 'Error connecting to server - please try again'
                             }).then(function(res) {
@@ -66,8 +71,10 @@ wittsNfc.factory('NfcService', function($rootScope, $ionicPlatform, $ionicLoadin
                             }
                             patientTempRecords.timeEntered = timeEntered;
                             patientTempRecords.tempFahrenheit = tempFahrenheit;
+                            $ionicLoading.hide();
                         },
                         function(httpError) {
+                            $ionicLoading.hide();
                             $ionicPopup.alert({
                                 title: 'Error connecting to server - please try again'
                             }).then(function(res) {
