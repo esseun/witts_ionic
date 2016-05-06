@@ -1,6 +1,19 @@
 var wittsTempChart = angular.module('TempChartCtrl', ['chart.js'])
 
 wittsTempChart.controller('TempChartCtrl', function($scope, $timeout, $ionicLoading, NfcService) {
+    // Chart.js options
+    $scope.chartOptions = {
+        tooltipEvents: [],
+        tooltipCaretSize: 0,
+        tooltipFillColor: "rgba(0,0,0,0)",
+        tooltipFontColor: "#444",
+        tooltipTemplate: function(label) {
+            return label.value;
+        },
+        onAnimationComplete: function() {
+            this.showTooltip(this.datasets[0].points, true);
+        }
+    }
     // Despite what they promise, angular-chart is NOT reactive as
     // charts are not updated when $scope variables change. This is
     // a dirty hack to make sure the rendering happens after data is
