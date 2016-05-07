@@ -31,6 +31,7 @@ wittsNfc.factory('NfcService', function($rootScope, $ionicPlatform, $ionicLoadin
         nfc.addNdefListener(function(nfcEvent) {
             // clear data from previous scan
             angular.copy({}, tagData);
+            angular.copy({}, patientTempRecords);
             timeEntered = [];
             tempFahrenheit = [];
             $ionicLoading.show();
@@ -98,12 +99,10 @@ wittsNfc.factory('NfcService', function($rootScope, $ionicPlatform, $ionicLoadin
                         patientTempRecords.tempFahrenheit = tempFahrenheit;
                         $ionicLoading.hide();
                     } else {
+                        // set these to empty arrays for use in tempchart.controller.js
+                        patientTempRecords.timeEntered = timeEntered;
+                        patientTempRecords.tempFahrenheit = tempFahrenheit;
                         $ionicLoading.hide();
-                        $ionicPopup.alert({
-                            title: 'No previous temperature measurements found'
-                        }).then(function(res) {
-                            angular.copy({}, tagData);
-                        });
                     }
                 },
                 function(httpError) {

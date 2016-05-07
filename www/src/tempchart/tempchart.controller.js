@@ -1,6 +1,6 @@
 var wittsTempChart = angular.module('TempChartCtrl', ['chart.js'])
 
-wittsTempChart.controller('TempChartCtrl', function($scope, $timeout, $ionicLoading, NfcService) {
+wittsTempChart.controller('TempChartCtrl', function($scope, $timeout, $ionicPopup, NfcService) {
     // Chart.js options
     $scope.chartOptions = {
         tooltipEvents: [],
@@ -22,6 +22,13 @@ wittsTempChart.controller('TempChartCtrl', function($scope, $timeout, $ionicLoad
         $scope.xSeries = [];
         $scope.ySeries = [];
         $scope.tempChartData = NfcService.patientTempRecords;
+        if (!$scope.tempChartData.timeEntered.length) {
+            $ionicPopup.alert({
+                title: 'No previous temperature measurements found'
+            }).then(function(res) {
+                angular.copy({}, NfcService.tagData);
+            });
+        }
         $scope.xSeries = $scope.tempChartData.timeEntered;
         // y-series data must be provided in the following format:
         // [ [a, b, c], [d, e, f] ]
