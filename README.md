@@ -1,6 +1,6 @@
 # WiTTS: Wireless Temperature Tracking System
 
- WiTTS, the Wireless Temperature Tracking System is an open source project
+WiTTS, the Wireless Temperature Tracking System is an open source project
 (with restrictions) created by Jason Choi in fulfillment of a Masters degree
 in Software Engineering at the University of California State Fullerton.
 It is a mobile application dedicated to medical professionals that aims
@@ -9,9 +9,9 @@ WiTTS utilizes an NFC-enabled, battery-less temperature sensor to automate a
 large part of the procedure, saving time and reducing human error.
 
 ## Getting Started
-`git clone https://github.com/esseun/witts_ionic.git witts`
+`git clone https://github.com/esseun/witts_ionic.git witts_ionic`
 
-Dependencies:
+**Dependencies:**
 - [npm] (https://github.com/npm/npm)
 - [Apache Cordova] (https://github.com/apache/cordova-android)
 - [ionic] (https://github.com/driftyco/ionic)
@@ -31,4 +31,4 @@ For reference, the 'Help' tab in the appication contains a user guide for basic 
 
 ## Copyright
 Copyright 2016© Jason Choi
-Republication or redistribution of WiTTS software content is strictly prohibited without the prior written consent of the author.
+- Republication or redistribution of WiTTS software content is strictly prohibited without the prior written consent of the author.
