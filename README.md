@@ -2,7 +2,7 @@
 
 WiTTS, the Wireless Temperature Tracking System is an open source project
 (with restrictions) created by Jason Choi in fulfillment of a Masters degree
-in Software Engineering at the University of California State Fullerton.
+in Software Engineering at the California State University Fullerton.
 It is a mobile application dedicated to medical professionals that aims
 to facilitate the day-to-day task of measuring and tracking patient temperature.
 WiTTS utilizes an NFC-enabled, battery-less temperature sensor to automate a
